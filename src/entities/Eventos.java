@@ -12,7 +12,7 @@ public class Eventos {
     }
 
     public void addEvento(Evento evento) {
-        conn = DB.getConnection();
+        conn = DB.pegarConnection();
         PreparedStatement st = null;
         try {
             st = conn.prepareStatement(
@@ -42,12 +42,12 @@ public class Eventos {
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
         } finally {
-            DB.closeStatement(st);
+            DB.fecharStatement(st);
         }
     }
 
     public void listarTudo() {
-        conn = DB.getConnection();
+        conn = DB.pegarConnection();
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
@@ -62,13 +62,13 @@ public class Eventos {
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
         } finally {
-            DB.closeResultSet(rs);
-            DB.closeStatement(st);
+            DB.fecharResultSet(rs);
+            DB.fecharStatement(st);
         }
     }
 
     public void editarEvento(Evento evento){
-        conn = DB.getConnection();
+        conn = DB.pegarConnection();
         PreparedStatement st = null;
         try{
             st = conn.prepareStatement(
@@ -89,12 +89,12 @@ public class Eventos {
         }catch (SQLException e){
             throw new RuntimeException(e.getMessage());
         } finally {
-            DB.closeStatement(st);
+            DB.fecharStatement(st);
         }
     }
 
     public void removeEvento(int id) {
-        Connection conn = DB.getConnection();
+        conn = DB.pegarConnection();
         PreparedStatement st = null;
         try {
             st = conn.prepareStatement(
@@ -106,12 +106,12 @@ public class Eventos {
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
         } finally {
-            DB.closeStatement(st);
+            DB.fecharStatement(st);
         }
     }
 
     public Evento encontrarId(int id){
-        conn = DB.getConnection();
+        conn = DB.pegarConnection();
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
@@ -134,8 +134,8 @@ public class Eventos {
         }catch (SQLException e){
             throw new RuntimeException(e.getMessage());
         } finally {
-            DB.closeResultSet(rs);
-            DB.closeStatement(st);
+            DB.fecharResultSet(rs);
+            DB.fecharStatement(st);
         }
     }
 }

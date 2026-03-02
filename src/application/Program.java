@@ -70,16 +70,16 @@ public class Program {
                 System.out.println("------------------------------------");
                 System.out.println("Evento #" + (i+1) + ": ");
                 System.out.print("Nome: ");
-                String nome = sc.nextLine();
+                String nome = sc.nextLine().toUpperCase();
                 System.out.print("Data (DD/MM/AAAA): ");
                 Date data = sdf.parse(sc.nextLine());
                 System.out.print("Horário: ");
                 String hora = sc.next();
                 sc.nextLine();
                 System.out.print("Local: ");
-                String local = sc.nextLine();
+                String local = sc.nextLine().toUpperCase();
                 System.out.print("Responsável: ");
-                String responsavel = sc.nextLine();
+                String responsavel = sc.nextLine().toUpperCase();
                 Evento dado = new Evento(null, nome, data, hora, local, responsavel);
                 evento.addEvento(dado);
             }
@@ -115,7 +115,7 @@ public class Program {
             Evento obj = evento.encontrarId(id);
             sc.nextLine();
             System.out.print("Nome: ");
-            String nome = sc.nextLine();
+            String nome = sc.nextLine().toUpperCase();
             obj.setNome(nome);
             System.out.print("Data (DD/MM/AAAA): ");
             Date data = sdf.parse(sc.nextLine());
@@ -124,10 +124,10 @@ public class Program {
             String hora = sc.nextLine();
             obj.setHora(hora);
             System.out.print("Local: ");
-            String local = sc.nextLine();
+            String local = sc.nextLine().toUpperCase();
             obj.setLocal(local);
             System.out.print("Responsável: ");
-            String responsavel = sc.nextLine();
+            String responsavel = sc.nextLine().toUpperCase();
             obj.setResponsavel(responsavel);
             evento.editarEvento(obj);
             menu();

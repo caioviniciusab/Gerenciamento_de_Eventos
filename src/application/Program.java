@@ -21,8 +21,8 @@ public class Program {
 
     }
 
-    public static void menu(){
-        try{
+    public static void menu() {
+        try {
             int option;
             System.out.println("------------------------------------");
             System.out.println(
@@ -108,55 +108,61 @@ public class Program {
 
 
     public static void editarEvento(){
-        try{
-            evento.listarTudo();
-            System.out.print("Digite o id do evento que será editado: ");
-            int id = sc.nextInt();
-            Evento obj = evento.encontrarId(id);
-            sc.nextLine();
-            System.out.print("Nome: ");
-            String nome = sc.nextLine().toUpperCase();
-            obj.setNome(nome);
-            System.out.print("Data (DD/MM/AAAA): ");
-            Date data = sdf.parse(sc.nextLine());
-            obj.setData(data);
-            System.out.print("Horário: ");
-            String hora = sc.nextLine();
-            obj.setHora(hora);
-            System.out.print("Local: ");
-            String local = sc.nextLine().toUpperCase();
-            obj.setLocal(local);
-            System.out.print("Responsável: ");
-            String responsavel = sc.nextLine().toUpperCase();
-            obj.setResponsavel(responsavel);
-            evento.editarEvento(obj);
-            menu();
-        }catch (ParseException e){
-            System.out.println("\033[31mFormato de data inválido.\033[m");
-        }
-        catch (DomainException e){
-            System.out.println(e.getMessage());
-        }
-        catch (RuntimeException e){
-            System.out.println("\033[31mErro inesperado.\033[m");
+        while (true){
+            try{
+                System.out.println("------------------------------------");
+                evento.listarTudo();
+                System.out.print("Digite o id do evento que será editado: ");
+                String id = sc.next();
+                Evento obj = evento.encontrarId(Integer.parseInt(id));
+                sc.nextLine();
+                System.out.print("Nome: ");
+                String nome = sc.nextLine().toUpperCase();
+                obj.setNome(nome);
+                System.out.print("Data (DD/MM/AAAA): ");
+                Date data = sdf.parse(sc.nextLine());
+                obj.setData(data);
+                System.out.print("Horário: ");
+                String hora = sc.nextLine();
+                obj.setHora(hora);
+                System.out.print("Local: ");
+                String local = sc.nextLine().toUpperCase();
+                obj.setLocal(local);
+                System.out.print("Responsável: ");
+                String responsavel = sc.nextLine().toUpperCase();
+                obj.setResponsavel(responsavel);
+                evento.editarEvento(obj);
+                menu();
+            }catch (ParseException e){
+                System.out.println("\033[31mFormato de data inválido.\033[m");
+            }
+            catch (DomainException e){
+                System.out.println(e.getMessage());
+            }
+            catch (RuntimeException e) {
+                System.out.println("\033[31mErro inesperado.\033[m");
+            }
         }
     }
 
 
     public static void remove() {
-        try{
-            evento.listarTudo();
-            System.out.print("Digite o id do evento que será excluído: ");
-            int id = sc.nextInt();
-            Evento obj = evento.encontrarId(id);
-            evento.removeEvento(obj.getId());
-            menu();
-        }
-        catch (DomainException e){
-            System.out.println(e.getMessage());
-        }
-        catch (RuntimeException e){
-            System.out.println("\033[31mErro inesperado.\033[m");
+        while (true){
+            try{
+                System.out.println("------------------------------------");
+                evento.listarTudo();
+                System.out.print("Digite o id do evento que será excluído: ");
+                String id = sc.next();
+                Evento obj = evento.encontrarId(Integer.parseInt(id));
+                evento.removeEvento(obj.getId());
+                menu();
+            }
+            catch (DomainException e){
+                System.out.println(e.getMessage());
+            }
+            catch (RuntimeException e) {
+                System.out.println("\033[31mErro inesperado.\033[m");
+            }
         }
     }
 }

@@ -134,6 +134,9 @@ public class Program {
         }catch (ParseException e){
             System.out.println("\033[31mFormato de data inválido.\033[m");
         }
+        catch (DomainException e){
+            System.out.println(e.getMessage());
+        }
         catch (RuntimeException e){
             System.out.println("\033[31mErro inesperado.\033[m");
         }
@@ -145,9 +148,14 @@ public class Program {
             evento.listarTudo();
             System.out.print("Digite o id do evento que será excluído: ");
             int id = sc.nextInt();
-            evento.removeEvento(id);
+            Evento obj = evento.encontrarId(id);
+            evento.removeEvento(obj.getId());
             menu();
-        } catch (RuntimeException e){
+        }
+        catch (DomainException e){
+            System.out.println(e.getMessage());
+        }
+        catch (RuntimeException e){
             System.out.println("\033[31mErro inesperado.\033[m");
         }
     }

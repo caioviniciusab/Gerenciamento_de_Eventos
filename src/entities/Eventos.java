@@ -130,7 +130,9 @@ public class Eventos {
                 evento.setResponsavel(rs.getString("responsavel"));
                 return evento;
             }
-            return null;
+            else{
+                throw new DomainException("\033[31mErro: Id não encontrado!\033[m");
+            }
         }catch (SQLException e){
             throw new RuntimeException(e.getMessage());
         } finally {

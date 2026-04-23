@@ -7,6 +7,7 @@ import entitiesException.DomainException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Program {
@@ -113,8 +114,9 @@ public class Program {
                 System.out.println("------------------------------------");
                 evento.listarTudo();
                 System.out.print("Digite o id do evento que será editado: ");
-                String id = sc.next();
-                Evento obj = evento.encontrarId(Integer.parseInt(id));
+                sc.nextLine();
+                int id = sc.nextInt();
+                Evento obj = evento.encontrarId(id);
                 sc.nextLine();
                 System.out.print("Nome: ");
                 String nome = sc.nextLine().toUpperCase();
@@ -139,8 +141,8 @@ public class Program {
             catch (DomainException e){
                 System.out.println(e.getMessage());
             }
-            catch (RuntimeException e) {
-                System.out.println("\033[31mErro inesperado.\033[m");
+            catch (InputMismatchException e){
+                System.out.println("\033[31mErro: você deve digitar um número!\033[m");
             }
         }
     }
@@ -152,16 +154,17 @@ public class Program {
                 System.out.println("------------------------------------");
                 evento.listarTudo();
                 System.out.print("Digite o id do evento que será excluído: ");
-                String id = sc.next();
-                Evento obj = evento.encontrarId(Integer.parseInt(id));
+                sc.nextLine();
+                int id = sc.nextInt();
+                Evento obj = evento.encontrarId(id);
                 evento.removeEvento(obj.getId());
                 menu();
             }
             catch (DomainException e){
                 System.out.println(e.getMessage());
             }
-            catch (RuntimeException e) {
-                System.out.println("\033[31mErro inesperado.\033[m");
+            catch (InputMismatchException e){
+                System.out.println("\033[31mErro: você deve digitar um número!\033[m");
             }
         }
     }

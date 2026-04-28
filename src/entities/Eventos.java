@@ -110,6 +110,31 @@ public class Eventos {
         }
     }
 
+    public void filtarPorData(Date inicio, Date fim){
+        conn = DB.pegarConnection();
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try{
+            st = conn.prepareStatement(
+                    "SELECT * FROM eventos WHERE data >= ? AND data < ?"
+            );
+            st.setDate(1, inicio);
+            st.setDate(2, fim);
+
+            rs = st.executeQuery();
+
+            while (rs.next()){
+                System.out.println(rs.getInt("id") + " | " + rs.getString("nome") + " | " + rs.getDate("data") + " | " + rs.getString("hora") + " | " + rs.getString("local") + " | " + rs.getString("responsavel"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+        finally {
+            DB.fecharResultSet(rs);
+            DB.fecharStatement(st);
+        }
+    }
+
     public Evento encontrarId(int id){
         conn = DB.pegarConnection();
         PreparedStatement st = null;

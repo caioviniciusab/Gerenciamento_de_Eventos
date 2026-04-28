@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class Program {
     static Scanner sc = new Scanner(System.in);
     static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    static int option;
 
     static Eventos evento = new Eventos();
 
@@ -24,7 +25,6 @@ public class Program {
 
     public static void menu() {
         try {
-            int option;
             System.out.println("------------------------------------");
             System.out.println(
                     """
@@ -35,6 +35,8 @@ public class Program {
                             3 - Editar evento
                             \
                             4 - Remover evento
+                            \
+                            5 - Filtrar por data
                             \
                             0 - Sair"""
             );
@@ -51,17 +53,18 @@ public class Program {
             }
             else if (option == 4){
                 remove();
-            }
-            else if (option == 0) {
+            } else if (option == 5) {
+                sc.nextLine();
+                filtrarData();
+            } else if (option == 0) {
                 System.out.println("\033[36mPrograma encerrado. Volte sempre!\033[m");
             }
-        } catch (RuntimeException e) {
-            System.out.println("\033[31mErro inesperado.\033[m");
+        } catch (DomainException e) {
+            System.out.println(e.getMessage());
         }
     }
 
     public static void addEvento(){
-
         try{
             System.out.print("Quantos eventos você irá cadastrar? ");
             int n = sc.nextInt();
@@ -165,6 +168,26 @@ public class Program {
             }
             catch (InputMismatchException e){
                 System.out.println("\033[31mErro: você deve digitar um número!\033[m");
+            }
+        }
+    }
+
+    public static void filtrarData() {
+        while (true) {
+            try {
+                System.out.println("------------------------------------");
+                evento.listarTudo();
+                System.out.print("Data inicial (DD/MM/AAAA): ");
+                Date inicio = sdf.parse(sc.nextLine());
+                System.out.print("Data final (DD/MM/AAAA): ");
+                Date fim = sdf.parse(sc.nextLine());
+                evento.filtarPorData(new java.sql.Date(inicio.getTime()), new java.sql.Date(fim.getTime()));
+                menu();
+            } catch (ParseException e) {
+                System.out.println("\033[31mFormato de data inválido.\033[m");
+            }
+            if (option == 0){
+                break;
             }
         }
     }

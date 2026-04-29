@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Program {
     static Scanner sc = new Scanner(System.in);
     static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-    static int option;
+    static boolean rodando = true;
 
     static Eventos evento = new Eventos();
 
@@ -41,7 +41,7 @@ public class Program {
                                 0 - Sair"""
                 );
                 System.out.print("Escolha uma opção: ");
-                option = Integer.parseInt(sc.nextLine());
+                int option = Integer.parseInt(sc.nextLine());
                 if (option == 1) {
                     addEvento();
                 } else if (option == 2) {
@@ -54,6 +54,7 @@ public class Program {
                     filtrarData();
                 } else if (option == 0) {
                     System.out.println("\033[36mPrograma encerrado. Volte sempre!\033[m");
+                    rodando = false;
                 }
             } catch (NumberFormatException e) {
                 System.out.println("\033[31mErro: você deve digitar um número!\033[m");
@@ -62,9 +63,7 @@ public class Program {
                 System.out.println(e.getMessage());
             }
             finally {
-                if (option == 0){
-                    break;
-                }
+                if (!rodando) break;
             }
         }
     }
@@ -98,6 +97,9 @@ public class Program {
                 System.out.println("Erro de data: " + e.getMessage());
             }catch (NumberFormatException e) {
                 System.out.println("\033[31mErro: você deve digitar um número!\033[m");
+            }
+            finally {
+                if (!rodando) break;
             }
         }
     }
@@ -147,6 +149,9 @@ public class Program {
             catch (NumberFormatException e) {
                 System.out.println("\033[31mErro: você deve digitar um número!\033[m");
             }
+            finally {
+                if (!rodando) break;
+            }
         }
     }
 
@@ -168,6 +173,9 @@ public class Program {
             catch (NumberFormatException e) {
                 System.out.println("\033[31mErro: você deve digitar um número!\033[m");
             }
+            finally {
+                if (!rodando) break;
+            }
         }
     }
 
@@ -185,8 +193,10 @@ public class Program {
             } catch (ParseException e) {
                 System.out.println("\033[31mFormato de data inválido.\033[m");
             }
-            if (option == 0){
-                break;
+            finally {
+                if (!rodando) {
+                    break;
+                }
             }
         }
     }

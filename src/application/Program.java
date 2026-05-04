@@ -193,6 +193,9 @@ public class Program {
             } catch (ParseException e) {
                 System.out.println("\033[31mFormato de data inválido.\033[m");
             }
+            catch (DomainException e){
+                System.out.println(e.getMessage());
+            }
             finally {
                 if (!rodando) {
                     break;

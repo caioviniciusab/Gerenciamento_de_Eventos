@@ -122,9 +122,14 @@ public class Eventos {
             st.setDate(2, fim);
 
             rs = st.executeQuery();
+            int linhas = 0;
 
             while (rs.next()){
                 System.out.println(rs.getInt("id") + " | " + rs.getString("nome") + " | " + rs.getDate("data") + " | " + rs.getString("hora") + " | " + rs.getString("local") + " | " + rs.getString("responsavel"));
+                linhas = 1;
+            }
+            if (linhas == 0){
+                throw new DomainException("\033[31mNão há nenhum evento entre essas datas!\33[m");
             }
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
